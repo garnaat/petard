@@ -14,6 +14,29 @@ a rough interface.  I'm sure the official SDK's will soon support API Gateway
 and when they do this library will not be of much use to anyone.  But in the
 meantime, if it helps you in any way you are more than welcome to it.
 
+## How does this work?
+
+This library uses boto3/botocore to do the heavy lifting of making requests and
+handling responses.  However, botocore is data-driven and requires a model of
+each service that it supports to be supplied in JSON format.
+
+To convince botocore to send requests to API Gateway we need a JSON data
+model.  Usually these models are generated automatically from the canonical
+description of the service within AWS.  Since we don't have that, petard
+hand-codes a JSON data model for API Gateway.  It then adds its `data`
+directory to the path of directories that botocore searches to find models.  In
+addition, to avoid having to manually define the shapes of all of the JSON
+output structures, all data is returned as a blob of JSON (convered to Python
+structures) exactly as it is returned by the service.  To accomplish this,
+petard attaches an event handler to botocore to manipulate the result before
+returning it to you.
+
+The main downside to the hand-coded data model (aside from the pain of creating
+it) is that its correctness cannot be guaranteed.  So, there are undoubtedly
+errors and and the moment no tests have been constructed.  Once the data model
+is mostly fleshed out, I will create a set of integration tests to test the
+library against the service.
+
 ## Installing
 
 Via pip:

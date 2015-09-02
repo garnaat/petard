@@ -158,6 +158,44 @@
       },
       "input":{"shape":"GetDomainNameInput"},
       "output":{"shape":"GenericOutputType"}
+    },
+    "ListStages":{
+      "name":"ListStages",
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/stages"
+      },
+      "input":{"shape":"ListStagesInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetStage":{
+      "name":"ListStage",
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/{stage_name}"
+      },
+      "input":{"shape":"GetStageInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateStage":{
+      "name":"CreateStage",
+      "http":{
+        "method":"POST",
+        "requestUri":"/restapis/{restapi_id}/stages",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateStageInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteStage":{
+      "name":"DeleteStage",
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}/{stage_name}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetStageInput"},
+      "output":{"shape":"GenericOutputType"}
     }
   },
   "shapes": {
@@ -290,6 +328,41 @@
       }
     },
     "CreateDeploymentInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        }
+      }
+    },
+    "ListStagesInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        }
+      }
+    },
+    "GetStageInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "stage_name":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "stage_name"
+        }
+      }
+    },
+    "CreateStageInput": {
       "type": "structure",
       "members":{
         "restapi_id":{

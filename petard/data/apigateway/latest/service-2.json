@@ -1,0 +1,165 @@
+{
+  "version":"1.0",
+  "metadata":{
+    "apiVersion":"2012-08-10",
+    "endpointPrefix":"apigateway",
+    "jsonVersion":"1.1",
+    "serviceAbbreviation":"APIGateway",
+    "serviceFullName":"Amazon API Gateway",
+    "signatureVersion":"v4",
+    "protocol":"rest-json"
+  },
+  "operations":{
+    "ListApiKeys":{
+      "name":"ListApiKeys",
+      "http":{
+        "method":"GET",
+        "requestUri":"/apikeys"
+      },
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetApiKey":{
+      "name":"GetApiKey",
+      "http":{
+        "method":"GET",
+        "requestUri":"/apikeys/{api_key}"
+      },
+      "input":{"shape":"GetApiKeyInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateApiKey":{
+      "name":"CreateApiKey",
+      "http":{
+        "method":"POST",
+        "requestUri":"/apikeys",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateApiKeyInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteApiKey":{
+      "name":"DeleteApiKey",
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/apikeys/{api_key}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetApiKeyInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "ListRestApis":{
+      "name":"ListRestApis",
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis"
+      },
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetRestApi":{
+      "name":"GetRestApi",
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}"
+      },
+      "input":{"shape":"GetApiKeyInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateRestApi":{
+      "name":"CreateRestApi",
+      "http":{
+        "method":"POST",
+        "requestUri":"/restapis",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateRestApiInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteRestApi":{
+      "name":"DeleteRestApi",
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetRestApiInput"},
+      "output":{"shape":"GenericOutputType"}
+    }
+  },
+  "shapes": {
+    "JsonBody": {"type": "string"},  
+    "ApiKey": {"type": "string"},
+    "String": {"type": "string"},
+    "Boolean": {"type": "boolean"},
+    "GetApiKeyInput": {
+      "type": "structure",
+      "members":{
+        "api_key":{
+          "shape": "ApiKey",
+          "location": "uri",
+          "locationName": "api_key"
+        }
+      }
+    },
+    "StageKey": {
+      "shape": "structure",
+      "members": {
+        "restApiId": {
+          "shape": "String"
+        },
+        "stageName": {
+          "shape": "String"
+        }
+      }
+    },
+    "StageKeys": {
+      "type": "list",
+      "member": {"shape": "StageKey"}
+    },
+    "CreateApiKeyInput": {
+      "type": "structure",
+      "required": [
+        "name"
+      ],
+      "members":{
+        "name":{
+          "shape": "String"
+        },
+        "description": {
+          "shape": "String"
+        },
+        "enabled": {
+          "shape": "Boolean"
+        },
+        "stage_keys": {
+          "shape": "StageKeys"
+        }
+      }
+    },
+    "CreateRestApiInput": {
+      "type": "structure",
+      "required": [
+        "name"
+      ],
+      "members":{
+        "name":{
+          "shape": "String"
+        },
+        "description": {
+          "shape": "String"
+        },
+        "cloneFrom": {
+          "shape": "String"
+        }
+      }
+    },
+    "GenericOutputType": {
+      "type": "structure",
+      "members":{
+        "json_body":{
+          "shape": "JsonBody"
+        }
+      },
+     "payload": "json_body"
+    }
+  }
+}

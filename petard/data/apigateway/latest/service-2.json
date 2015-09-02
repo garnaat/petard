@@ -159,6 +159,44 @@
       "input":{"shape":"GetDomainNameInput"},
       "output":{"shape":"GenericOutputType"}
     },
+    "ListModels":{
+      "name":"ListModels",
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/models"
+      },
+      "input":{"shape":"ListModelsInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetModel":{
+      "name":"GetModel",
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/models/{model_name}"
+      },
+      "input":{"shape":"GetModelInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateModel":{
+      "name":"CreateModel",
+      "http":{
+        "method":"POST",
+        "requestUri":"/restapis/{restapi_id}/models",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateModelInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteModel":{
+      "name":"DeleteModel",
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}/models/{model_name}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetModelInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
     "ListStages":{
       "name":"ListStages",
       "http":{
@@ -169,10 +207,10 @@
       "output":{"shape":"GenericOutputType"}
     },
     "GetStage":{
-      "name":"ListStage",
+      "name":"GetStage",
       "http":{
         "method":"GET",
-        "requestUri":"/restapis/{restapi_id}/{stage_name}"
+        "requestUri":"/restapis/{restapi_id}/stages/{stage_name}"
       },
       "input":{"shape":"GetStageInput"},
       "output":{"shape":"GenericOutputType"}
@@ -191,7 +229,7 @@
       "name":"DeleteStage",
       "http":{
         "method":"DELETE",
-        "requestUri":"/restapis/{restapi_id}/{stage_name}",
+        "requestUri":"/restapis/{restapi_id}/stages/{stage_name}",
         "responseCode": 202
       },
       "input":{"shape":"GetStageInput"},
@@ -337,6 +375,53 @@
         }
       }
     },
+    "ListModelsInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        }
+      }
+    },
+    "GetModelInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "model_name":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "model_name"
+        }
+      }
+    },
+    "CreateModelInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "name": {
+          "shape": "String"
+        },
+        "description": {
+          "shape": "String"
+        },
+        "schema": {
+          "shape": "String"
+        },
+        "contentType": {
+          "shape": "String"
+        }
+      }
+    },
     "ListStagesInput": {
       "type": "structure",
       "members":{
@@ -369,6 +454,21 @@
           "shape": "String",
           "location": "uri",
           "locationName": "restapi_id"
+        },
+        "stageName": {
+          "shape": "String"
+        },
+        "deploymentId": {
+          "shape": "String"
+        },
+        "description": {
+          "shape": "String"
+        },
+        "cacheClusterEnabled": {
+          "shape": "Boolean"
+        },
+        "cacheClusterSizes": {
+          "shape": "String"
         }
       }
     },

@@ -83,6 +83,81 @@
       },
       "input":{"shape":"GetRestApiInput"},
       "output":{"shape":"GenericOutputType"}
+    },
+    "ListDomainNames":{
+      "name":"ListDomainNames",
+      "http":{
+        "method":"GET",
+        "requestUri":"/domainnames"
+      },
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetDomainName":{
+      "name":"GetDomainName",
+      "http":{
+        "method":"GET",
+        "requestUri":"/domainnames/{domain_name}"
+      },
+      "input":{"shape":"GetDomainNameInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateDomainName":{
+      "name":"CreateDomainName",
+      "http":{
+        "method":"POST",
+        "requestUri":"/domainnames",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateDomainNameInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteDomainName":{
+      "name":"DeleteDomainName",
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/domainnames/{domain_name}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetDomainNameInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "ListDeployments":{
+      "name":"ListDeployments",
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/deployments"
+      },
+      "input":{"shape":"ListDeploymentsInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetDeployment":{
+      "name":"ListDeployments",
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/{deployment_id}"
+      },
+      "input":{"shape":"GetDeploymentInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateDeployment":{
+      "name":"CreateDeployment",
+      "http":{
+        "method":"POST",
+        "requestUri":"/restapis/{restapi_id}/deployments",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateDeploymentInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteDeployment":{
+      "name":"DeleteDeployment",
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}/{deployment_id}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetDomainNameInput"},
+      "output":{"shape":"GenericOutputType"}
     }
   },
   "shapes": {
@@ -149,6 +224,78 @@
         },
         "cloneFrom": {
           "shape": "String"
+        }
+      }
+    },
+    "GetDomainNameInput": {
+      "type": "structure",
+      "members":{
+        "domain_name":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "domain_name"
+        }
+      }
+    },
+    "CreateDomainNameInput": {
+      "type": "structure",
+      "required": [
+        "domainName",
+        "certificateName",
+        "certificateBody",
+        "certificatePrivateKey",
+        "certificateChain"
+      ],
+      "members":{
+        "domainName":{
+          "shape": "String"
+        },
+        "certificateName": {
+          "shape": "String"
+        },
+        "certificateBody": {
+          "shape": "String"
+        },
+        "certificatePrivateKey": {
+          "shape": "String"
+        },
+        "certificateChain": {
+          "shape": "String"
+        }
+      }
+    },
+    "ListDeploymentsInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        }
+      }
+    },
+    "GetDeploymentInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "deployment_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "deployment_id"
+        }
+      }
+    },
+    "CreateDeploymentInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
         }
       }
     },

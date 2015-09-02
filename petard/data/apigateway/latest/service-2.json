@@ -11,7 +11,6 @@
   },
   "operations":{
     "ListApiKeys":{
-      "name":"ListApiKeys",
       "http":{
         "method":"GET",
         "requestUri":"/apikeys"
@@ -19,7 +18,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "GetApiKey":{
-      "name":"GetApiKey",
       "http":{
         "method":"GET",
         "requestUri":"/apikeys/{api_key}"
@@ -28,7 +26,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "CreateApiKey":{
-      "name":"CreateApiKey",
       "http":{
         "method":"POST",
         "requestUri":"/apikeys",
@@ -38,7 +35,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "DeleteApiKey":{
-      "name":"DeleteApiKey",
       "http":{
         "method":"DELETE",
         "requestUri":"/apikeys/{api_key}",
@@ -47,45 +43,7 @@
       "input":{"shape":"GetApiKeyInput"},
       "output":{"shape":"GenericOutputType"}
     },
-    "ListRestApis":{
-      "name":"ListRestApis",
-      "http":{
-        "method":"GET",
-        "requestUri":"/restapis"
-      },
-      "output":{"shape":"GenericOutputType"}
-    },
-    "GetRestApi":{
-      "name":"GetRestApi",
-      "http":{
-        "method":"GET",
-        "requestUri":"/restapis/{restapi_id}"
-      },
-      "input":{"shape":"GetApiKeyInput"},
-      "output":{"shape":"GenericOutputType"}
-    },
-    "CreateRestApi":{
-      "name":"CreateRestApi",
-      "http":{
-        "method":"POST",
-        "requestUri":"/restapis",
-        "responseCode": 201
-      },
-      "input":{"shape":"CreateRestApiInput"},
-      "output":{"shape":"GenericOutputType"}
-    },
-    "DeleteRestApi":{
-      "name":"DeleteRestApi",
-      "http":{
-        "method":"DELETE",
-        "requestUri":"/restapis/{restapi_id}",
-        "responseCode": 202
-      },
-      "input":{"shape":"GetRestApiInput"},
-      "output":{"shape":"GenericOutputType"}
-    },
     "ListDomainNames":{
-      "name":"ListDomainNames",
       "http":{
         "method":"GET",
         "requestUri":"/domainnames"
@@ -93,7 +51,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "GetDomainName":{
-      "name":"GetDomainName",
       "http":{
         "method":"GET",
         "requestUri":"/domainnames/{domain_name}"
@@ -102,7 +59,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "CreateDomainName":{
-      "name":"CreateDomainName",
       "http":{
         "method":"POST",
         "requestUri":"/domainnames",
@@ -112,7 +68,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "DeleteDomainName":{
-      "name":"DeleteDomainName",
       "http":{
         "method":"DELETE",
         "requestUri":"/domainnames/{domain_name}",
@@ -122,7 +77,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "ListDeployments":{
-      "name":"ListDeployments",
       "http":{
         "method":"GET",
         "requestUri":"/restapis/{restapi_id}/deployments"
@@ -131,16 +85,14 @@
       "output":{"shape":"GenericOutputType"}
     },
     "GetDeployment":{
-      "name":"ListDeployments",
       "http":{
         "method":"GET",
-        "requestUri":"/restapis/{restapi_id}/{deployment_id}"
+        "requestUri":"/restapis/{restapi_id}/deployments/{deployment_id}"
       },
       "input":{"shape":"GetDeploymentInput"},
       "output":{"shape":"GenericOutputType"}
     },
     "CreateDeployment":{
-      "name":"CreateDeployment",
       "http":{
         "method":"POST",
         "requestUri":"/restapis/{restapi_id}/deployments",
@@ -150,17 +102,56 @@
       "output":{"shape":"GenericOutputType"}
     },
     "DeleteDeployment":{
-      "name":"DeleteDeployment",
       "http":{
         "method":"DELETE",
-        "requestUri":"/restapis/{restapi_id}/{deployment_id}",
+        "requestUri":"/restapis/{restapi_id}/deployments/{deployment_id}",
         "responseCode": 202
       },
       "input":{"shape":"GetDomainNameInput"},
       "output":{"shape":"GenericOutputType"}
     },
+    "GetMethodByHttpMethod":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/resources/{resource_id}/methods/{http_method}"
+      },
+      "input":{"shape":"GetMethodInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateMethod":{
+      "http":{
+        "method":"PUT",
+        "requestUri":"/restapis/{restapi_id}/resources/{resource_id}/methods/{http_method}/integration"
+      },
+      "input":{"shape":"CreateMethodInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetMethodIntegration":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/resources/{resource_id}/methods/{http_method}/integration"
+      },
+      "input":{"shape":"GetMethodInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetMethodResources":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/resources/{resource_id}/methods/{http_method}/responses/{status_code}"
+      },
+      "input":{"shape":"GetMethodResourcesInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteMethod":{
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}/resources/{resource_id}/methods/{http_method}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetMethodInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
     "ListModels":{
-      "name":"ListModels",
       "http":{
         "method":"GET",
         "requestUri":"/restapis/{restapi_id}/models"
@@ -169,7 +160,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "GetModel":{
-      "name":"GetModel",
       "http":{
         "method":"GET",
         "requestUri":"/restapis/{restapi_id}/models/{model_name}"
@@ -178,7 +168,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "CreateModel":{
-      "name":"CreateModel",
       "http":{
         "method":"POST",
         "requestUri":"/restapis/{restapi_id}/models",
@@ -188,7 +177,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "DeleteModel":{
-      "name":"DeleteModel",
       "http":{
         "method":"DELETE",
         "requestUri":"/restapis/{restapi_id}/models/{model_name}",
@@ -197,8 +185,40 @@
       "input":{"shape":"GetModelInput"},
       "output":{"shape":"GenericOutputType"}
     },
+    "ListRestApis":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis"
+      },
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetRestApi":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}"
+      },
+      "input":{"shape":"GetApiKeyInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateRestApi":{
+      "http":{
+        "method":"POST",
+        "requestUri":"/restapis",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateRestApiInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteRestApi":{
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetRestApiInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
     "ListStages":{
-      "name":"ListStages",
       "http":{
         "method":"GET",
         "requestUri":"/restapis/{restapi_id}/stages"
@@ -207,7 +227,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "GetStage":{
-      "name":"GetStage",
       "http":{
         "method":"GET",
         "requestUri":"/restapis/{restapi_id}/stages/{stage_name}"
@@ -216,7 +235,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "CreateStage":{
-      "name":"CreateStage",
       "http":{
         "method":"POST",
         "requestUri":"/restapis/{restapi_id}/stages",
@@ -226,7 +244,6 @@
       "output":{"shape":"GenericOutputType"}
     },
     "DeleteStage":{
-      "name":"DeleteStage",
       "http":{
         "method":"DELETE",
         "requestUri":"/restapis/{restapi_id}/stages/{stage_name}",
@@ -469,6 +486,77 @@
         },
         "cacheClusterSizes": {
           "shape": "String"
+        }
+      }
+    },
+    "GetMethodInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "resource_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "resource_id"
+        },
+        "http_method":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "http_method"
+        }
+      }
+    },
+    "GetMethodResourcesInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "resource_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "resource_id"
+        },
+        "http_method":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "http_method"
+        },
+        "status_code": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "status_code"
+        }
+      }
+    },
+    "CreateMethodInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "resource_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "resource_id"
+        },
+        "http_method":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "http_method"
+        },
+        "authorizationType": {
+          "shape": "String"
+        },
+        "apiKeyRequired": {
+          "shape": "Boolean"
         }
       }
     },

@@ -37,6 +37,17 @@ errors and and the moment no tests have been constructed.  Once the data model
 is mostly fleshed out, I will create a set of integration tests to test the
 library against the service.
 
+## What's Currently Supported
+
+Currenlty, there are CRUD interfaces for the following resources:
+
+* ApiKey
+* Deployment
+* DomainName
+* Resource
+* RestApi
+* Stage
+
 ## Installing
 
 Via pip:
@@ -68,3 +79,15 @@ To use petard, create a client for the API Gateway service:
 
 The data contained in `Response` is just the raw JSON data returned by the
 service, converted to Python.
+
+For each resource that is supported, a basic CRUD interface is created.  So,
+for example for the RestApi resource you have these methods available in the
+client: 
+
+* list_restapis()
+* get_restapi(restapi_id='<a restapi id>')
+* create_restapi(name='foo', description='bar')
+* delete_restapi(restapi_id='<a restapi_id>')
+
+For the create methods, the goal is to name the parameters the same as they are
+defined in the Amazon API Gateway API documentation.

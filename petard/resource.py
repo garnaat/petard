@@ -20,34 +20,23 @@
 # IN THE SOFTWARE.
 #
 
-import os
-import json
 
-import botocore.session
-import boto3
+class Resource(object):
 
-import petard.resource
+    def __init__(self, response):
+        self.href = '/'
+        self.items = []
+        for key in response:
+            if key == '_links':
+                self._links = response['_links']
+                if 'self' in self._links:
+                    self.href = self._links['self']['href']
+                self.url = self._links.get('self', '/')
+            elif key == '_embedded':
+                for item in response['_embedded']['item']:
+                    self.items.append(Resource(item))
+            else:
+                setattr(self, key, response[key])
 
-__version__ = open(os.path.join(os.path.dirname(__file__), '_version')).read()
-
-
-def fix_response(http_response, parsed, **kwargs):
-    if 'json_body' in parsed:
-        parsed['Resource'] = petard.resource.Resource(
-            json.loads(parsed['json_body']))
-        del parsed['json_body']
-
-
-def _get_path():
-    return os.path.join(os.path.dirname(__file__), 'data')
-
-
-def get_client(profile_name=None, region_name=None):
-    _session = botocore.session.get_session()
-    _session.set_config_variable('profile', profile_name)
-    _session.set_config_variable('data_path', _get_path())
-    _session.register('after-call.apigateway.*', fix_response)
-    session = boto3.Session(profile_name=profile_name,
-                            region_name=region_name,
-                            botocore_session=_session)
-    return session.client('apigateway')
+    def __repr__(self):
+        return 'Resource: %s' % self.href

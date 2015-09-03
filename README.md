@@ -1,18 +1,18 @@
 # petard
 
-> For ’tis the sport to have the engineer Hoist with his own petard...
+> "For ’tis the sport to have the engineer Hoist with his own petard..."
 >     - William Shakespeare, "Hamlet"
 
-Petard provides a crude Python interface for the Amazon API Gateway service.
-Because the API Gateway uses a style of API that is very different than other
-Amazon Web Services, it has taken much longer for the official SDK's to provide
+Petard provides a simple Python interface for the Amazon API Gateway service.
+The API Gateway uses a style of API that is very different than other Amazon
+Web Services, so it has taken much longer for the official SDK's to provide
 support for the service.
 
 Because I had an urgent need to have a Python library for API Gateway, I have
-created this small hack that builds upon the mechanisms in botocore to provide
-a rough interface.  I'm sure the official SDK's will soon support API Gateway
-and when they do this library will not be of much use to anyone.  But in the
-meantime, if it helps you in any way you are more than welcome to it.
+created this small library that builds upon the mechanisms in botocore to
+provide a rough interface.  I'm sure the official SDK's will soon support API
+Gateway and when they do this library will not be of much use to anyone.  But
+in the meantime, if it helps you in any way you are more than welcome to it.
 
 ## How does this work?
 
@@ -42,9 +42,12 @@ library against the service.
 Currenlty, there are CRUD interfaces for the following resources:
 
 * ApiKey
+* BasePathMapping
 * Deployment
 * DomainName
-* Resource
+* Integration
+* Method
+* Model
 * RestApi
 * Stage
 
@@ -72,22 +75,23 @@ To use petard, create a client for the API Gateway service:
 >>> import petard
 >>> client = petard.get_client(profile_name='foo', region_name='us-west-2')
 >>> client.list_api_keys()
-{'Response': { 'all the junk from API Gateway' },
+{'Resource': `a Resource object`,
  'ResponseMetadata': { 'http status and stuff' }}
 >>>
 ```
 
-The data contained in `Response` is just the raw JSON data returned by the
-service, converted to Python.
+The `Resource` key contains a `petard.resource.Resource` object that
+encapsulates the data returned from the service and tries to make it a bit
+easier to use.
 
 For each resource that is supported, a basic CRUD interface is created.  So,
 for example for the RestApi resource you have these methods available in the
 client: 
 
 * list_restapis()
-* get_restapi(restapi_id='<a restapi id>')
+* get_restapi(restapi_id=`a restapi id`)
 * create_restapi(name='foo', description='bar')
-* delete_restapi(restapi_id='<a restapi_id>')
+* delete_restapi(restapi_id=`a restapi_id`)
 
 For the create methods, the goal is to name the parameters the same as they are
 defined in the Amazon API Gateway API documentation.

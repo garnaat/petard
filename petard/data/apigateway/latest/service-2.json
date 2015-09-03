@@ -43,6 +43,74 @@
       "input":{"shape":"GetApiKeyInput"},
       "output":{"shape":"GenericOutputType"}
     },
+    "GetPathMapping":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/domains/{domain_name}/basepathmappings/{base_path}"
+      },
+      "input": {"shape": "GetBasePathMappingInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateBaseBathMapping":{
+      "http":{
+        "method":"POST",
+        "requestUri":"/domains/{domain_name}/basepathmappings",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateDomainNameInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteBasePathMapping":{
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/domains/{domain_name}/basepathmappings/{base_path}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetBasePathMappingInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "ListDeployments":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/deployments"
+      },
+      "input":{"shape":"ListDeploymentsInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetDeployment":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/deployments/{deployment_id}"
+      },
+      "input":{"shape":"GetDeploymentInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateDeployment":{
+      "http":{
+        "method":"POST",
+        "requestUri":"/restapis/{restapi_id}/deployments",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateDeploymentInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteDeployment":{
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}/deployments/{deployment_id}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetDomainNameInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetDeploymentStages":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/stages"
+      },
+      "input":{"shape":"CreateDeploymentInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
     "ListDomainNames":{
       "http":{
         "method":"GET",
@@ -83,14 +151,6 @@
       },
       "output":{"shape":"GenericOutputType"}
     },
-    "GetDomainName":{
-      "http":{
-        "method":"GET",
-        "requestUri":"/domainnames/{domain_name}"
-      },
-      "input":{"shape":"GetDomainNameInput"},
-      "output":{"shape":"GenericOutputType"}
-    },
     "CreateIntegration":{
       "http":{
         "method":"POST",
@@ -100,6 +160,14 @@
       "input":{"shape":"CreateIntegrationInput"},
       "output":{"shape":"GenericOutputType"}
     },
+    "GetIntegrationResponses":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/resources/{resources_id}/methods/{http_method}/integration/responses/{status_code}"
+      },
+      "input":{"shape":"GetIntegrationResponsesInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
     "DeleteIntegration":{
       "http":{
         "method":"DELETE",
@@ -107,40 +175,6 @@
         "responseCode": 202
       },
       "input":{"shape":"GetIntegrationInput"},
-      "output":{"shape":"GenericOutputType"}
-    },
-    "ListDeployments":{
-      "http":{
-        "method":"GET",
-        "requestUri":"/restapis/{restapi_id}/deployments"
-      },
-      "input":{"shape":"ListDeploymentsInput"},
-      "output":{"shape":"GenericOutputType"}
-    },
-    "GetDeployment":{
-      "http":{
-        "method":"GET",
-        "requestUri":"/restapis/{restapi_id}/deployments/{deployment_id}"
-      },
-      "input":{"shape":"GetDeploymentInput"},
-      "output":{"shape":"GenericOutputType"}
-    },
-    "CreateDeployment":{
-      "http":{
-        "method":"POST",
-        "requestUri":"/restapis/{restapi_id}/deployments",
-        "responseCode": 201
-      },
-      "input":{"shape":"CreateDeploymentInput"},
-      "output":{"shape":"GenericOutputType"}
-    },
-    "DeleteDeployment":{
-      "http":{
-        "method":"DELETE",
-        "requestUri":"/restapis/{restapi_id}/deployments/{deployment_id}",
-        "responseCode": 202
-      },
-      "input":{"shape":"GetDomainNameInput"},
       "output":{"shape":"GenericOutputType"}
     },
     "GetMethodByHttpMethod":{
@@ -353,6 +387,21 @@
         },
         "stage_keys": {
           "shape": "StageKeys"
+        }
+      }
+    },
+    "GetBasePathMappingInput": {
+      "type": "structure",
+      "members":{
+        "domain_name":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "domain_name"
+        },
+        "base_path": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "base_path"
         }
       }
     },
@@ -604,6 +653,31 @@
           "shape": "String",
           "location": "uri",
           "locationName": "http_method"
+        }
+      }
+    },
+    "GetIntegrationResponsesInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "resource_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "resource_id"
+        },
+        "http_method":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "http_method"
+        },
+        "status_code": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "status_code"
         }
       }
     },

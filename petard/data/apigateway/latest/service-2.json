@@ -268,6 +268,40 @@
       "input":{"shape":"GetModelInput"},
       "output":{"shape":"GenericOutputType"}
     },
+    "ListResources":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/resources"
+      },
+      "input":{"shape":"ListModelsInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetResource":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/resources/{resource_id}"
+      },
+      "input":{"shape":"GetResourceInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateResource":{
+      "http":{
+        "method":"POST",
+        "requestUri":"/restapis/{restapi_id}/resources",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateResourceInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteResource":{
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}/resources/{resource_id}",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetResourceInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
     "ListRestApis":{
       "http":{
         "method":"GET",
@@ -537,6 +571,34 @@
           "shape": "String"
         },
         "contentType": {
+          "shape": "String"
+        }
+      }
+    },
+    "GetResourceInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "resource_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "resource_id"
+        }
+      }
+    },
+    "CreateResourceInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "pathPart": {
           "shape": "String"
         }
       }

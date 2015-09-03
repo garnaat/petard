@@ -48,6 +48,7 @@ Currenlty, there are CRUD interfaces for the following resources:
 * Integration
 * Method
 * Model
+* Resource
 * RestApi
 * Stage
 

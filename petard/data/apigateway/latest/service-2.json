@@ -76,6 +76,39 @@
       "input":{"shape":"GetDomainNameInput"},
       "output":{"shape":"GenericOutputType"}
     },
+    "ListIntegrations":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/restapis/{restapi_id}/resources/{resources_id}/methods/{http_method}/integration"
+      },
+      "output":{"shape":"GenericOutputType"}
+    },
+    "GetDomainName":{
+      "http":{
+        "method":"GET",
+        "requestUri":"/domainnames/{domain_name}"
+      },
+      "input":{"shape":"GetDomainNameInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateIntegration":{
+      "http":{
+        "method":"POST",
+        "requestUri":"/restapis/{restapi_id}/resources/{resources_id}/methods/{http_method}/integration",
+        "responseCode": 201
+      },
+      "input":{"shape":"CreateIntegrationInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "DeleteIntegration":{
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/restapis/{restapi_id}/resources/{resources_id}/methods/{http_method}/integration",
+        "responseCode": 202
+      },
+      "input":{"shape":"GetIntegrationInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
     "ListDeployments":{
       "http":{
         "method":"GET",
@@ -298,6 +331,10 @@
     "StageKeys": {
       "type": "list",
       "member": {"shape": "StageKey"}
+    },
+    "CacheKeyParameters": {
+      "type": "list",
+      "member": {"shape": "String"}
     },
     "CreateApiKeyInput": {
       "type": "structure",
@@ -550,6 +587,70 @@
         }
       }
     },
+    "GetIntegrationInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "resource_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "resource_id"
+        },
+        "http_method":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "http_method"
+        }
+      }
+    },
+    "CreateIntegrationInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "restapi_id"
+        },
+        "resource_id":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "resource_id"
+        },
+        "http_method":{
+          "shape": "String",
+          "location": "uri",
+          "locationName": "http_method"
+        },
+        "type": {
+          "shape": "String"
+        },
+        "httpMethod": {
+          "shape": "String"
+        },
+        "uri": {
+          "shape": "String"
+        },
+        "credentials": {
+          "shape": "String"
+        },
+        "requestParameters": {
+          "shape": "RequestParametersMap"
+        },
+        "requestTemplates": {
+          "shape": "RequestParametersMap"
+        },
+        "cacheNamespace": {
+          "shape": "String"
+        },
+        "cacheKeyParameters": {
+          "shape": "CacheKeyParameters"
+        }
+      }
+    },
     "ResponseParametersMap": {
       "type": "map",
       "key": {"shape": "String"},
@@ -614,6 +715,12 @@
         },
         "apiKeyRequired": {
           "shape": "Boolean"
+        },
+        "requestParameters": {
+          "shape": "ResponseParametersMap"
+        },
+        "requestModels": {
+          "shape": "ResponseModelsMap"
         }
       }
     },

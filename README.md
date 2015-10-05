@@ -89,10 +89,10 @@ For each resource that is supported, a basic CRUD interface is created.  So,
 for example for the RestApi resource you have these methods available in the
 client: 
 
-* list_restapis()
-* get_restapi(restapi_id=`a restapi id`)
-* create_restapi(name='foo', description='bar')
-* delete_restapi(restapi_id=`a restapi_id`)
+* list_rest_apis()
+* get_rest_api(restapi_id=`a restapi id`)
+* create_rest_api(name='foo', description='bar')
+* delete_rest_api(restapi_id=`a restapi_id`)
 
 For the create methods, the goal is to name the parameters the same as they are
 defined in the Amazon API Gateway API documentation.

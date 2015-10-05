@@ -18,7 +18,7 @@ setup(
     author_email='mitch@garnaat.com',
     url='https://github.com/garnaat/petard',
     packages=find_packages(exclude=['tests*']),
-    package_data={'petard': ['_version']},
+    package_data={'petard': ['_version', 'data/*.json', 'data/*/*.json']},
     install_requires=requires,
     license=open("LICENSE").read(),
     classifiers=(

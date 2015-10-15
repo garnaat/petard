@@ -45,20 +45,29 @@ class Resource(object):
     def rest_api(self):
         return self._rest_api
 
-    def list_methods(self):
+    def get_method_by_http_method(self, http_method):
         """
         Get all methods associated with this resource
         """
-        response = self._client.list_methods(restapi_id=self.id)
-        return [Resource(self._client, r, self)
-                for r in response['Resource'].items]
-
-    def create_method(self, http_method):
-        response = self._client.create_method(
+        response = self._client.get_method_by_http_method(
             restapi_id=self._rest_api.id, resource_id=self.id,
             http_method=http_method)
-        # if response['ResponseMetadata']['HTTPStatusCode'] == 201:
-        #     response = Method(self._client, response['Resource'], self)
+        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+            response = Method(self._client, response['Resource'], self)
+        return response
+
+    def create_method(self, http_method, authorization_type='NONE',
+                      api_key_required=False, request_parameters=None):
+        params = {'restapi_id': self.rest_api.id,
+                  'resource_id': self.id,
+                  'http_method': http_method,
+                  'authorizationType': authorization_type,
+                  'apiKeyRequired': api_key_required}
+        if request_parameters:
+            params['requestParameters'] = request_parameters
+        response = self._client.create_method(**params)
+        if response['ResponseMetadata']['HTTPStatusCode'] == 201:
+            response = Method(self._client, response['Resource'], self)
         return response
 
     def delete(self):

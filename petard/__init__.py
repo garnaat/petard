@@ -32,7 +32,7 @@ class Resource(object):
                 if 'self' in self._links:
                     self.href = self._links['self']['href']
                 self.url = self._links.get('self', '/')
-            elif key == '_embedded':
+            elif key == '_embedded' and 'item' in response['_embedded']:
                 if isinstance(response['_embedded']['item'], dict):
                     self.items.append(Resource(response['_embedded']['item']))
                 else:

@@ -24,7 +24,7 @@ class Method(object):
         return 'Method: %s' % self.method
 
     @property
-    def method(self):
+    def http_method(self):
         return self._data.httpMethod
 
     @property
@@ -51,7 +51,10 @@ class Method(object):
         """
         Delete this Method
         """
-        response = self._client.delete_api_resource(api_key=self.id)
+        response = self._client.delete_method(
+            restapi_id=self.resource.rest_api.id,
+            resource_id=self.resource.id,
+            http_method=self.http_method)
         if response['ResponseMetadata']['HTTPStatusCode'] == 202:
             response = True
         return response

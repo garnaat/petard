@@ -20,7 +20,7 @@ from petard.restapi import RestApi
 
 class APIGateway(object):
 
-    def __init__(self, profile_name, region_name):
+    def __init__(self, profile_name=None, region_name=None):
         self._client = petard.get_client(
             profile_name=profile_name, region_name=region_name)
 

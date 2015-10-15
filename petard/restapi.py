@@ -80,12 +80,16 @@ class RestApi(object):
                 for d in response['Resource'].items]
 
     def create_deployment(self, stage_name, stage_description=None,
+                          description=None,
                           cache_cluster_enabled=False,
                           cache_cluster_size=None):
-        params = {'stageName': stage_name,
+        params = {'restapi_id': self.id,
+                  'stageName': stage_name,
                   'cacheClusterEnabled': cache_cluster_enabled}
         if stage_description:
             params['stageDescription'] = stage_description
+        if description:
+            params['description'] = description
         if cache_cluster_size:
             params['cacheClusterSize'] = cache_cluster_size
         response = self._client.create_deployment(**params)

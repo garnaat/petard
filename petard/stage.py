@@ -12,10 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from petard.method import Method
 
-
-class Resource(object):
+class Stage(object):
 
     def __init__(self, client, data, rest_api):
         self._client = client
@@ -23,50 +21,54 @@ class Resource(object):
         self._rest_api = rest_api
 
     def __repr__(self):
-        return 'Resource: %s' % self.path
+        return 'Stage: %s' % self.name
 
     @property
-    def id(self):
-        return self._data.id
+    def deployment_id(self):
+        return self._data.deploymentId
 
     @property
-    def parent_id(self):
-        return self._data.parentId
+    def name(self):
+        return self._data.stageName
 
     @property
-    def path_part(self):
-        return self._data.pathPart
+    def description(self):
+        return self._data.description
 
     @property
-    def path(self):
-        return self._data.path
+    def created_date(self):
+        return self._data.createdDate
+
+    @property
+    def last_updated_date(self):
+        return self._data.lastUpdatedDate
+
+    @property
+    def cache_cluster_enabled(self):
+        return self._data.cacheClusterEnabled
+
+    @property
+    def cache_cluster_size(self):
+        return self._data.cacheClusterSize
+
+    @property
+    def cache_cluster_status(self):
+        return self._data.cacheClusterStatus
+
+    @property
+    def method_settings(self):
+        return self._data.methodSettings
 
     @property
     def rest_api(self):
         return self._rest_api
 
-    def list_methods(self):
-        """
-        Get all methods associated with this resource
-        """
-        response = self._client.list_methods(restapi_id=self.id)
-        return [Resource(self._client, r, self)
-                for r in response['Resource'].items]
-
-    def create_method(self, http_method):
-        response = self._client.create_method(
-            restapi_id=self._rest_api.id, resource_id=self.id,
-            http_method=http_method)
-        # if response['ResponseMetadata']['HTTPStatusCode'] == 201:
-        #     response = Method(self._client, response['Resource'], self)
-        return response
-
     def delete(self):
         """
         Delete this API key
         """
-        response = self._client.delete_resource(
-            restapi_id=self._rest_api.id, resource_id=self.id)
+        response = self._client.delete_stage(
+            api_key=self.id, stage_name=self.name)
         if response['ResponseMetadata']['HTTPStatusCode'] == 202:
             response = True
         return response

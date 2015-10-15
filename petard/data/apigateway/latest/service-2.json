@@ -43,6 +43,15 @@
       "input":{"shape":"GetApiKeyInput"},
       "output":{"shape":"GenericOutputType"}
     },
+    "UpdateApiKey": {
+      "http": {
+        "method": "PATCH",
+        "requestUri": "/apikeys/{api_key}",
+        "responseCode": 200
+      },
+      "input": {"shape": "ApiKeyUpdateType"},
+      "output": {"shape": "GenericOutputType"}
+    },
     "GetPathMapping":{
       "http":{
         "method":"GET",
@@ -188,6 +197,14 @@
     "CreateMethod":{
       "http":{
         "method":"PUT",
+        "requestUri":"/restapis/{restapi_id}/resources/{resource_id}/methods/{http_method}"
+      },
+      "input":{"shape":"CreateMethodInput"},
+      "output":{"shape":"GenericOutputType"}
+    },
+    "CreateMethodIntegration":{
+      "http":{
+        "method":"PUT",
         "requestUri":"/restapis/{restapi_id}/resources/{resource_id}/methods/{http_method}/integration"
       },
       "input":{"shape":"CreateMethodInput"},
@@ -287,7 +304,7 @@
     "CreateResource":{
       "http":{
         "method":"POST",
-        "requestUri":"/restapis/{restapi_id}/resources",
+        "requestUri":"/restapis/{restapi_id}/resources/{parent_id}",
         "responseCode": 201
       },
       "input":{"shape":"CreateResourceInput"},
@@ -373,8 +390,22 @@
   "shapes": {
     "JsonBody": {"type": "string"},  
     "ApiKey": {"type": "string"},
+    "RestApi": {"type": "string"},
     "String": {"type": "string"},
     "Boolean": {"type": "boolean"},
+    "PatchOperation": {
+      "type": "structure",
+      "members": {
+        "op": {"shape": "String"},
+        "path": {"shape": "String"},
+        "value": {"shape": "String"},
+        "from": {"shape": "String"}
+      }
+    },
+    "PatchOperationList": {
+      "type": "list",
+      "member": {"shape": "PatchOperation"}
+    },
     "GetApiKeyInput": {
       "type": "structure",
       "members":{
@@ -386,7 +417,7 @@
       }
     },
     "StageKey": {
-      "shape": "structure",
+      "type": "structure",
       "members": {
         "restApiId": {
           "shape": "String"
@@ -466,6 +497,16 @@
         }
       }
     },
+    "GetRestApiInput": {
+      "type": "structure",
+      "members":{
+        "restapi_id":{
+          "shape": "RestApi",
+          "location": "uri",
+          "locationName": "restapi_id"
+        }
+      }
+    },
     "CreateDomainNameInput": {
       "type": "structure",
       "required": [
@@ -493,7 +534,7 @@
         }
       }
     },
-    "ListDeploymentsInput": {
+    "ListDeloymentsInput": {
       "type": "structure",
       "members":{
         "restapi_id":{
@@ -597,6 +638,11 @@
           "shape": "String",
           "location": "uri",
           "locationName": "restapi_id"
+        },
+        "parentId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "parent_id"
         },
         "pathPart": {
           "shape": "String"
@@ -868,6 +914,19 @@
         }
       },
      "payload": "json_body"
+    },
+    "ApiKeyUpdateType": {
+      "type": "structure",
+      "members":{
+        "api_key":{
+          "shape": "ApiKey",
+          "location": "uri",
+          "locationName": "api_key"
+        },
+        "patchOperations":{
+          "shape": "PatchOperationList"
+        }
+      }
     }
   }
 }

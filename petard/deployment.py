@@ -12,10 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from petard.method import Method
 
-
-class Resource(object):
+class Deployment(object):
 
     def __init__(self, client, data, rest_api):
         self._client = client
@@ -23,50 +21,34 @@ class Resource(object):
         self._rest_api = rest_api
 
     def __repr__(self):
-        return 'Resource: %s' % self.path
+        return 'Deployment: %s' % self.path
 
     @property
     def id(self):
         return self._data.id
 
     @property
-    def parent_id(self):
-        return self._data.parentId
+    def description(self):
+        return self._data.description
 
     @property
-    def path_part(self):
-        return self._data.pathPart
+    def created_date(self):
+        return self._data.createdDate
 
     @property
-    def path(self):
-        return self._data.path
+    def api_summary(self):
+        return self._data.apiSummary
 
     @property
     def rest_api(self):
         return self._rest_api
 
-    def list_methods(self):
-        """
-        Get all methods associated with this resource
-        """
-        response = self._client.list_methods(restapi_id=self.id)
-        return [Resource(self._client, r, self)
-                for r in response['Resource'].items]
-
-    def create_method(self, http_method):
-        response = self._client.create_method(
-            restapi_id=self._rest_api.id, resource_id=self.id,
-            http_method=http_method)
-        # if response['ResponseMetadata']['HTTPStatusCode'] == 201:
-        #     response = Method(self._client, response['Resource'], self)
-        return response
-
     def delete(self):
         """
-        Delete this API key
+        Delete this Deployment
         """
-        response = self._client.delete_resource(
-            restapi_id=self._rest_api.id, resource_id=self.id)
+        response = self._client.delete_deployment(
+            api_key=self.id, deployment_id=self.id)
         if response['ResponseMetadata']['HTTPStatusCode'] == 202:
             response = True
         return response
